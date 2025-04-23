@@ -1,0 +1,163 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="flex flex-col mr-2">
+      <h1>Tasks</h1>
+      <div class="view-text">View and manage your tasks</div>
+    </div>
+
+
+    <div class="buttons-container">
+      <button class="active">
+        <ng-icon name="heroListBulletSolid" class="icon"></ng-icon>
+      </button>
+      <button>
+        <ng-icon name="heroSquaresPlusSolid" class="icon"></ng-icon>
+      </button>
+      <button>
+        <ng-icon name="heroUsersSolid" class="icon"></ng-icon>
+      </button>
+    </div>
+    <div class="button-container">
+      <button>
+        <ng-icon name="heroCalendarDaysSolid" class="calendar-icon"></ng-icon>
+      </button>
+      <button>
+        <ng-icon name="heroSunSolid" class="theme-icon"></ng-icon>
+      </button>
+    </div>
+    <div class="view-options">
+      <button class="btn btn-primary add-task-btn" (click)="addTask()">
+        <ng-icon name="heroPlusMini"></ng-icon> Add Task/Request
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter section -->
+  <div class="filter-section">
+    <div class="filter-container">
+      <div class="filters-label">
+        <i class="fa fa-filter"></i> Filters
+      </div>
+
+      <div class="ai-container">
+        <span class="ai-note">Use AI to automatically assign selected tasks</span>
+        <button class="btn btn-light ai-btn">
+          ⚡ Use AI
+        </button>
+      </div>
+
+      <div class="filter-buttons">
+        <button class="btn btn-light">
+          <ng-icon name="heroUserSolid"></ng-icon> My Tasks
+        </button>
+        <button class="btn btn-light">
+          <ng-icon name="heroClockSolid"></ng-icon> Overdue
+        </button>
+        <button class="btn btn-light">
+          <ng-icon name="heroCalendarDaysSolid"></ng-icon> Due Today
+        </button>
+        <div class="dropdown">
+          <button class="btn btn-light dropdown-toggle">
+            All Statuses <i class="fa fa-chevron-down"></i>
+          </button>
+        </div>
+        <div class="priority-filters">
+          <span class="priority-dot critical">●</span> Critical
+          <span class="priority-dot high">●</span> High
+          <span class="priority-dot medium">●</span> Medium
+          <span class="priority-dot low">●</span> Low
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks table using ngx-datatable -->
+  <div class="tasks-table">
+    <ngx-datatable
+      #table
+      class="material"
+      [columns]="columns"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [selected]="selected"
+      rowHeight="auto"
+      [limit]="10"
+      [rows]="tasks"
+    >
+    </ngx-datatable>
+  </div>
+
+
+
+  <ng-template #checkboxTemplate let-row="row" let-value="value">
+    <input
+      type="checkbox"
+      [checked]="row.selected"
+      (change)="onSelectCheckbox(row, $event)"
+    >
+  </ng-template>
+  <ng-template #levelTemplate let-row="row" let-value="value">
+    <ng-icon name="heroSquare3Stack3dMini"></ng-icon>
+  </ng-template>
+
+  <ng-template #actionsTemplate let-row="row" let-value="value">
+    <button (click)="pause(value)" class="btn-delete mr-4">
+      <ng-icon name="heroPauseCircleMini"></ng-icon>
+    </button>
+    <button (click)="editTask(value)" class="btn-edit">
+      <ng-icon name="heroPencilSquareMini"></ng-icon>
+    </button>
+
+  </ng-template>
+
+  <ng-template #statusTemplate let-row="row" let-value="value">
+  <span class="status-badge" [ngClass]="getStatusClass(row.status)">
+    {{ row.status }}
+  </span>
+  </ng-template>
+
+  <ng-template #timeTemplate let-row="row" let-value="value">
+    <div class="time-display">
+      <ng-icon [name]="getTimeIcon(row.time)" class="time-icon"></ng-icon>
+      <span class="time-badge" [ngClass]="getTime(row.time)">
+      {{ row.time }}
+    </span>
+    </div>
+  </ng-template>
+
+  <!-- Add Task Modal -->
+  <div class="modal" [class.show]="showAddTaskModal" *ngIf="showAddTaskModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Task</h5>
+          <button type="button" class="close" (click)="showAddTaskModal = false">
+            <span>cancel</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Form fields -->
+            <div class="form-group">
+              <label>Task Name</label>
+              <input type="text" class="form-control" [(ngModel)]="newTask.taskName" name="taskName">
+            </div>
+            <div class="form-group">
+              <label>Project</label>
+              <input type="text" class="form-control" [(ngModel)]="newTask.project" name="project">
+            </div>
+            <!-- More fields... -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="showAddTaskModal = false">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addTask()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
