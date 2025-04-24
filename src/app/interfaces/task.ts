@@ -13,7 +13,7 @@ enum TaskPriority {
   Critical = 'critical'
 }
 
-interface Task {
+export interface Task {
   id: number;
   taskName: string;
   project: string;
@@ -30,6 +30,6 @@ interface Task {
   time: string;
 }
 
-interface IStoreTodo {
+export interface IStoreTodo {
   tasks: Task[]
 }

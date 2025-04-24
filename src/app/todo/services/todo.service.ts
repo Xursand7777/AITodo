@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, delay, map, Observable, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-
+import {Task, IStoreTodo} from "../../interfaces/task";
 
 @Injectable({
   providedIn: 'root'

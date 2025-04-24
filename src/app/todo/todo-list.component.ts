@@ -9,6 +9,7 @@ import {NgIconsModule} from '@ng-icons/core';
 import {Router} from '@angular/router';
 import {TodoService} from './services/todo.service';
 import {Observable} from 'rxjs';
+import {Task} from "../interfaces/task"
 
 @Component({
   selector: 'app-todo-list',
