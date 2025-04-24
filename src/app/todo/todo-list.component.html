@@ -84,7 +84,7 @@
       [selected]="selected"
       rowHeight="auto"
       [limit]="10"
-      [rows]="tasks"
+      [rows]="tasks$$ | async"
     >
     </ngx-datatable>
   </div>

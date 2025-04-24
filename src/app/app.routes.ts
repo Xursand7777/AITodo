@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import TodoComponent from './todo/todo.component';
+import TodoListComponent from './todo/todo-list.component';
 import TodoFormComponent from './todo/todo-form/todo-form.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'todos' },
   {
     path: 'todos',
-    loadComponent: () => TodoComponent
+    loadComponent: () => TodoListComponent
   },
   {
     path:'todo-new',
