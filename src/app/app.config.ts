@@ -20,10 +20,12 @@ import {
   heroUserSolid, heroClockSolid,
 } from '@ng-icons/heroicons/solid'
 import {QuillModule} from 'ngx-quill';
+import {provideHttpClient} from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideHttpClient(),
     importProvidersFrom(ToastrModule.forRoot()),
     importProvidersFrom(QuillModule.forRoot()),
     provideIcons({

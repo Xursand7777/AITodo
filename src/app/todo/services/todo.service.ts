@@ -20,7 +20,7 @@ export class TodoService {
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.jsonUrl).pipe(
+    return this.http.get<Task[]>(this.jsonUrl, {responseType:'json'}).pipe(
       delay(5000),
       tap((tasks) => this._updateStore({tasks: tasks})),
     );
